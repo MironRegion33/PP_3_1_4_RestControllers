@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+    <meta charset="UTF-8">
     <title>Spring Security Example</title>
+    <style>
+        .login-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #42a5f5;  /* Голубой цвет */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #1e88e5;  /* Темнее голубой при наведении */
+        }
+    </style>
 </head>
 <body>
 <h1>Welcome to Index PAGE!</h1>
 
-
+<a th:href="@{/login}" class="login-btn">Войти</a>
 </body>
 </html>
