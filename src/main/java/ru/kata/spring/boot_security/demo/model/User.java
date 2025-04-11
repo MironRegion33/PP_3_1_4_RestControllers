@@ -26,6 +26,7 @@ public class User implements UserDetails {
     private int age;
 
     @Column(unique = true)
+    @NotEmpty
     private String email;
 
     @NotEmpty(message = "пароль не должен быть пустым")

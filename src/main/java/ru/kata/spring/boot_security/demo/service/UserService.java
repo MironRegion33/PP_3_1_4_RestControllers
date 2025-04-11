@@ -10,13 +10,13 @@ public interface UserService extends UserDetailsService {
 
     List<User> getAllUsers();
 
-    public void saveUser(User user, String[] roles);
+    void saveUser(User user, String[] roles);
 
-    public User getUser(int id);
+    User getUser(int id);
 
-    public void updateUser(User user, String[] roles);
+    void updateUser(User user, String[] roles);
 
-    public void deleteUser(int id);
+    void deleteUser(int id);
 
-    public Optional<User> getUserById(int id);
+    Optional<User> getUserById(int id);
 }

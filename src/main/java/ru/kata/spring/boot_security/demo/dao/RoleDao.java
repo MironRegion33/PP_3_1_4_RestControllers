@@ -7,9 +7,9 @@ import java.util.Set;
 
 public interface RoleDao {
 
-    public List<Role> findAll();
+    List<Role> findAll();
 
-    public Set<Role> findRoleByName(String name);
+    Set<Role> findRoleByName(String name);
 
     void saveRole(Role role);
 }
