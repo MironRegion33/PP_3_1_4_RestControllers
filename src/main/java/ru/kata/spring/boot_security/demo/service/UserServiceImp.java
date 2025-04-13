@@ -83,8 +83,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<User> user = userDao.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        List<User> user = userDao.findByEmail(email);
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
         } else {

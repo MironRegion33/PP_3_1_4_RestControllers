@@ -13,12 +13,10 @@ import javax.annotation.PostConstruct;
 public class Init {
     private final UserService userService;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
 
-    public Init(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public Init(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
