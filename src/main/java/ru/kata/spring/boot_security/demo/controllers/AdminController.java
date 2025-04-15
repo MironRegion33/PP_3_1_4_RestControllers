@@ -51,13 +51,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/updateUser")
-    public String updateUser(@RequestParam("userId") int id, Model model) {
-        User user = userService.getUser(id);
-        List<Role> roles = roleService.getAllRoles();
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute("user") User user,
+                             @RequestParam(value = "listRoles", required = false) String[] roles,
+                             Model model) {
         model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
-        return "updateUser";
+        model.addAttribute("roles", roleService.getAllRoles());
+        userService.updateUser(user, roles);
+        return "redirect:/admin";
     }
 
     @PostMapping("/delete")

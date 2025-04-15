@@ -54,7 +54,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public List<User> findByEmail(String email) {
         return entityManager.createQuery("select u from User u join fetch u.roles where u.email =:email")
-                .setParameter("email" , email)
+                .setParameter("email", email)
                 .getResultList();
     }
 }

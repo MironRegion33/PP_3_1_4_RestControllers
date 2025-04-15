@@ -36,7 +36,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void saveUser(User user, String[] roles) {
-        user.setPassword(getPasswordEncoder.encode(user.getPassword()));
+        System.err.println(user);
         Set<Role> listRoles = new HashSet<>();
         if (roles != null) {
             for (String roleName : roles) {
@@ -48,6 +48,7 @@ public class UserServiceImp implements UserService {
         }
         user.setRoles(listRoles);
         if (user.getId() == 0) {
+            user.setPassword(getPasswordEncoder.encode(user.getPassword()));
             System.err.println("принял " + user + " save");
             userDao.saveUser(user);
         } else {
