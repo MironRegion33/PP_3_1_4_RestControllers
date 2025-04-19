@@ -33,4 +33,9 @@ public class RoleServiceImp implements RoleService {
     public void saveRole(Role role) {
         roleDao.saveRole(role);
     }
+
+    @Override
+    public Role findRolesById(int id) {
+        return roleDao.findRolesById(id);
+    }
 }

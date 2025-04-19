@@ -12,10 +12,11 @@
             margin: 100px auto;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .login-title {
-            font-weight: 700; /* Можно указать любое значение от 100 до 900 */
+            font-weight: 700;
         }
 
     </style>
@@ -26,7 +27,7 @@
         <h2 class="text mb-3 login-title">Please sign in</h2>
 
         <form name="f" method="post" action="/login">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 
             <div class="mb-0">
                 <input type="text"

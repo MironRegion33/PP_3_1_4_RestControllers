@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Component
 public class Init {
@@ -33,12 +34,14 @@ public class Init {
         admin.setName("admin");
         admin.setPassword("admin");
         admin.setEmail("admin@admin.com");
-        userService.saveUser(admin, new String[]{"ROLE_ADMIN"});
+        admin.setRoles(Set.of(adminRole));
+        userService.saveUser(admin);
 
         User user = new User();
         user.setName("user");
         user.setPassword("user");
         user.setEmail("user@user.com");
-        userService.saveUser(user, new String[]{"ROLE_USER"});
+        user.setRoles(Set.of(userRole));
+        userService.saveUser(user);
     }
 }

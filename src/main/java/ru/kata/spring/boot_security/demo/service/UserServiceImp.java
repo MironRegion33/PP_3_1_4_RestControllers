@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -35,26 +36,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(User user, String[] roles) {
-        System.err.println(user);
-        Set<Role> listRoles = new HashSet<>();
-        if (roles != null) {
-            for (String roleName : roles) {
-                Set<Role> foundRoles = roleService.findRoleByName(roleName);
-                listRoles.addAll(foundRoles);
-            }
-        } else {
-            listRoles.addAll(roleService.findRoleByName("ROLE_USER"));
-        }
-        user.setRoles(listRoles);
-        if (user.getId() == 0) {
-            user.setPassword(getPasswordEncoder.encode(user.getPassword()));
-            System.err.println("принял " + user + " save");
-            userDao.saveUser(user);
-        } else {
-            System.err.println("принял " + user + " update");
-            userDao.updateUser(user);
-        }
+    public void saveUser(User user) {
+        Set<Role> roles = user.getRoles().stream().map(role -> roleService.findRolesById(role.getId()))
+                .collect(Collectors.toSet());
+        user.setRoles(roles);
+        user.setPassword(getPasswordEncoder.encode(user.getPassword()));
+        userDao.saveUser(user);
     }
 
     @Override
@@ -65,15 +52,14 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
-    public void updateUser(User user, String[] roles) {
-        Set<Role> listRoles = new HashSet<>();
-        if (roles != null) {
-            for (String roleName : roles) {
-                Set<Role> foundRoles = roleService.findRoleByName(roleName);
-                listRoles.addAll(foundRoles);
-            }
+    public void updateUser(User user, int id) {
+        User updatedUser = userDao.getUser(id);
+        if (user.getRoles().isEmpty()) {
+            user.setRoles(updatedUser.getRoles());
         }
-        user.setRoles(listRoles);
+        if (user.getPassword().isEmpty()) {
+            user.setPassword(getPasswordEncoder.encode(user.getPassword()));
+        }
         userDao.updateUser(user);
     }
 
@@ -96,5 +82,17 @@ public class UserServiceImp implements UserService {
     @Override
     public Optional<User> getUserById(int id) {
         return Optional.ofNullable(userDao.getUser(id));
+    }
+
+    private Set<Role> getRoles(User user) {
+        Set<Role> listRoles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            Role existingRole = roleService.findRoleByName(role.getName())
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
+            listRoles.add(existingRole);
+        }
+        return listRoles;
     }
 }
