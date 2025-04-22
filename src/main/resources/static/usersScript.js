@@ -1,7 +1,9 @@
+const URL = 'http://localhost:8080';
+
 // get authenticated User
 
 async function auth() {
-    let res = await fetch('http://localhost:8080/admin/api/showUser');
+    let res = await fetch(`${URL}/admin/api/showUser`);
     return await res.json();
 }
 
@@ -56,7 +58,7 @@ async function currentUserTable() {
 //  all Users table
 
 async function allUsersTable() {
-    let response = await fetch("http://localhost:8080/admin/api");
+    let response = await fetch(`${URL}/admin/api`);
     let users = await response.json();
     document.querySelector('#allUsersBody').innerHTML = '';
     users.forEach(user => {
@@ -93,7 +95,7 @@ async function allUsersTable() {
 
 async function newUser() {
 
-    let roles = await fetch('http://localhost:8080/admin/api/roles');
+    let roles = await fetch(`${URL}/admin/api/roles`);
     roles = await roles.json();
     roles.forEach(role => {
         if (document.querySelector('#roles').children.length < 3) {
@@ -106,7 +108,7 @@ async function newUser() {
 
     document.querySelector('#newUserAddForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const url = 'http://localhost:8080/admin/api/saveUser';
+        const url = `${URL}/admin/api/saveUser`;
         let response = await fetch(url, {
             method: "POST",
             headers: {
@@ -175,7 +177,7 @@ function onDeleteButton(button) {
 //  Modal EDIT
 
 async function modalEdit() {
-    let roles = await fetch("http://localhost:8080/admin/api/roles");
+    let roles = await fetch(`${URL}/admin/api/roles`);
     roles = await roles.json();
     roles.forEach(role => {
         if (document.querySelector('#editRoles').children.length < 3) {
@@ -188,7 +190,7 @@ async function modalEdit() {
 
     document.querySelector('#editBtnSubmit').addEventListener('click', async (e) => {
         e.preventDefault();
-        let url = `http://localhost:8080/admin/api/updateUser/${document.querySelector('#editId').value}`;
+        let url = `${URL}/admin/api/updateUser/${document.querySelector('#editId').value}`;
         await fetch(url, {
             method: "PATCH",
             headers: {
@@ -214,7 +216,7 @@ async function modalEdit() {
 function modalDelete() {
     document.querySelector('.deleteSubmit').addEventListener('click', async (event) => {
         event.preventDefault();
-        let url = `http://localhost:8080/admin/api/delete/${document.querySelector('#deleteId').value}`;
+        let url = `${URL}/admin/api/delete/${document.querySelector('#deleteId').value}`;
         await fetch(url, {
             method: "DELETE"
         });

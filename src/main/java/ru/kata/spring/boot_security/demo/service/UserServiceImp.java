@@ -57,9 +57,7 @@ public class UserServiceImp implements UserService {
         if (user.getRoles().isEmpty()) {
             user.setRoles(updatedUser.getRoles());
         }
-        if (user.getPassword().isEmpty()) {
             user.setPassword(getPasswordEncoder.encode(user.getPassword()));
-        }
         userDao.updateUser(user);
     }
 

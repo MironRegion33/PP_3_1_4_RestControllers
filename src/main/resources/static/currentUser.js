@@ -1,8 +1,9 @@
+const URL = 'http://localhost:8080';
+
 // get authenticated User
 
-
 async function auth() {
-    let res = await fetch('http://localhost:8080/api/user');
+    let res = await fetch(`${URL}/api/user`);
     return await res.json();
 }
 
